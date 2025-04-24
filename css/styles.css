@@ -1,0 +1,66 @@
+/* Balance Container Styles */
+.balance-container {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.balance-title {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #1a5276;
+}
+
+.account-total {
+    background-color: #f5f9fc;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.total-value {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 5px;
+}
+
+.price-info {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+}
+
+.balance-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.balance-table td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+.balance-table tr:last-child td {
+    border-bottom: none;
+}
+
+.balance-table td:first-child {
+    width: 40%;
+    font-weight: 500;
+    color: #34495e;
+}
+
+.balance-table td:last-child {
+    color: #2c3e50;
+}
+
+#savingsRow td div, #rewardsRow td div {
+    margin-bottom: 5px;
+}
+
+#delegatedPowerRow, #receivedPowerRow {
+    background-color: #f8f9fa;
+} 

@@ -1,0 +1,233 @@
+.balance-container {
+    margin-top: 50px;
+    display: none;
+    animation: fadeInUp 0.8s ease-out;
+    opacity: 0;
+    transform: translateY(20px);
+    animation-fill-mode: forwards;
+}
+
+.balance-container.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.balance-toggle {
+    text-align: center;
+    margin: 30px 0 20px;
+}
+
+.toggle-button {
+    background: linear-gradient(135deg, #3a6fc9 0%, #1e4c9a 100%);
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(58, 111, 201, 0.2);
+}
+
+.toggle-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(58, 111, 201, 0.3);
+}
+
+.toggle-button:active {
+    transform: translateY(0);
+}
+
+.balance-title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    text-align: center;
+    position: relative;
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.balance-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(135deg, #3a6fc9 0%, #1e4c9a 100%);
+    margin: 10px auto 0;
+    border-radius: 3px;
+}
+
+.account-total {
+    text-align: center;
+    margin-bottom: 30px;
+    background-color: var(--card-background);
+    border-radius: var(--card-radius);
+    padding: 18px 24px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid rgba(225, 232, 245, 0.8);
+}
+
+.total-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+}
+
+.price-info {
+    font-size: 1.1rem;
+    color: var(--subtle-text);
+}
+
+.price-info span {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.balance-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+.balance-card {
+    background-color: var(--card-background);
+    border-radius: var(--card-radius);
+    padding: 24px 20px;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(225, 232, 245, 0.7);
+}
+
+.balance-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(135deg, #3a6fc9 0%, #0dcaf0 100%);
+    opacity: 0.8;
+}
+
+.balance-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-md);
+    border-color: transparent;
+}
+
+.balance-card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 18px;
+    color: var(--primary-color);
+    font-weight: 600;
+    padding-right: 30px;
+}
+
+.balance-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    align-items: center;
+}
+
+.balance-row:last-child {
+    margin-bottom: 0;
+}
+
+.balance-label {
+    font-weight: 500;
+    color: var(--subtle-text);
+    font-size: 0.9rem;
+}
+
+.balance-row span:not(.balance-label) {
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+/* Custom colors for different balance cards */
+.balance-card:nth-child(1)::before { background: linear-gradient(135deg, #3a6fc9 0%, #7c4fc9 100%); }
+.balance-card:nth-child(2)::before { background: linear-gradient(135deg, #28a745 0%, #20c997 100%); }
+.balance-card:nth-child(3)::before { background: linear-gradient(135deg, #fd7e14 0%, #ffc107 100%); }
+.balance-card:nth-child(4)::before { background: linear-gradient(135deg, #e83e8c 0%, #fd7e14 100%); }
+.balance-card:nth-child(5)::before { background: linear-gradient(135deg, #20c997 0%, #0dcaf0 100%); }
+.balance-card:nth-child(6)::before { background: linear-gradient(135deg, #6610f2 0%, #6f42c1 100%); }
+.balance-card:nth-child(7)::before { background: linear-gradient(135deg, #dc3545 0%, #fd7e14 100%); }
+.balance-card:nth-child(8)::before { background: linear-gradient(135deg, #0dcaf0 0%, #17a2b8 100%); }
+.balance-card:nth-child(9)::before { background: linear-gradient(135deg, #3a6fc9 0%, #6f42c1 100%); }
+.balance-card:nth-child(10)::before { background: linear-gradient(135deg, #fd7e14 0%, #dc3545 100%); }
+.balance-card:nth-child(11)::before { background: linear-gradient(135deg, #6f42c1 0%, #dc3545 100%); }
+.balance-card:nth-child(12)::before { background: linear-gradient(135deg, #17a2b8 0%, #28a745 100%); }
+
+/* Detailed Balance Table */
+.detailed-balance {
+    margin-top: 40px;
+    animation: fadeInUp 0.8s ease-out;
+    opacity: 0;
+    transform: translateY(20px);
+    animation-fill-mode: forwards;
+    display: none;
+}
+
+.detailed-balance.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.detailed-balance-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+    background-color: var(--card-background);
+    border-radius: var(--card-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+}
+
+.detailed-balance-table tr:nth-child(even) {
+    background-color: rgba(242, 245, 250, 0.5);
+}
+
+.detailed-balance-table td {
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(225, 232, 245, 0.6);
+}
+
+.detailed-balance-table tr:last-child td {
+    border-bottom: none;
+}
+
+.detailed-balance-table td:first-child {
+    font-weight: 600;
+    color: var(--primary-color);
+    width: 40%;
+}
+
+.detailed-balance-table td:last-child {
+    color: var(--text-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .balance-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .balance-title {
+        font-size: 1.8rem;
+    }
+    
+    .detailed-balance-table td {
+        padding: 12px 15px;
+    }
+    
+    .detailed-balance-table {
+        font-size: 0.95rem;
+    }
+} 

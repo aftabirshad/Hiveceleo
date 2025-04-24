@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hive Balance Dashboard | Premium Analytics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://api.hive.blog" crossorigin>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="balance.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="Check your Hive blockchain account balances and financial details">
+</head>
+<body>
+    <div class="container">
+        <div class="search-container">
+            <h1>Hive Balance Dashboard</h1>
+            <p class="subtitle">Get comprehensive balance information for any Hive blockchain account</p>
+            <div class="search-box">
+                <input type="text" id="usernameInput" placeholder="Enter Hive username" autocomplete="off">
+                <button onclick="searchUser()">
+                    <span>Search</span>
+                    <div class="loader" id="searchLoader"></div>
+                </button>
+            </div>
+        </div>
+
+        <div class="balance-container active" id="balanceContainer">
+            <h2 class="balance-title">Account Balance Details</h2>
+            <div class="balance-grid">
+                <div class="balance-card">
+                    <div class="card-icon">💰</div>
+                    <h3>Account Value</h3>
+                    <div class="balance-row">
+                        <span class="balance-label">USD:</span>
+                        <span id="accountValueUSD">0.00 USD</span>
+                    </div>
+                    <div class="balance-row">
+                        <span class="balance-label">EUR:</span>
+                        <span id="accountValueEUR">0.00 EUR</span>
+                    </div>
+                </div>
+                
+                <div class="balance-card">
+                    <div class="card-icon">🎁</div>
+                    <h3>Reward Balance</h3>
+                    <div class="balance-row">
+                        <span class="balance-label">STEEM:</span>
+                        <span id="rewardBalanceSTEEM">0.000 STEEM</span>
+                    </div>
+                    <div class="balance-row">
+                        <span class="balance-label">SBD:</span>
+                        <span id="rewardBalanceSBD">0.000 SBD</span>
+                    </div>
+                </div>
+                
+                <div class="balance-card">
+                    <div class="card-icon">💵</div>
+                    <h3>Account Balance</h3>
+                    <div class="balance-row">
+                        <span class="balance-label">STEEM:</span>
+                        <span id="accountBalanceSTEEM">0.000 STEEM</span>
+                    </div>
+                    <div class="balance-row">
+                        <span class="balance-label">SBD:</span>
+                        <span id="accountBalanceSBD">0.000 SBD</span>
+                    </div>
+                </div>
+                
+                <div class="balance-card">
+                    <div class="card-icon">🏦</div>
+                    <h3>Savings Balance</h3>
+                    <div class="balance-row">
+                        <span class="balance-label">STEEM:</span>
+                        <span id="savingsBalanceSTEEM">0.000 STEEM</span>
+                    </div>
+                    <div class="balance-row">
+                        <span class="balance-label">SBD:</span>
+                        <span id="savingsBalanceSBD">0.000 SBD</span>
+                    </div>
+                </div>
+                
+                <div class="balance-card">
+                    <div class="card-icon">⚖️</div>
+                    <h3>Vesting Balance</h3>
+                    <div class="balance-row">
+                        <span class="balance-label">STEEM:</span>
+                        <span id="vestingBalance">0.000 STEEM</span>
+                    </div>
+                </div>
+                
+                <div class="balance-card">
+                    <div class="card-icon">📊</div>
+                    <h3>Vesting Shares</h3>
+                    <div class="balance-row">
+                        <span class="balance-label">STEEM:</span>
+                        <span id="vestingSharesSTEEM">0.000 STEEM</span>
+                    </div>
+                    <div class="balance-row">
+                        <span class="balance-label">MV:</span>
+                        <span id="vestingSharesMV">0.000 MV</span>
+                    </div>
+                </div>
+                
+                <div class="balance-card">
+                    <div class="card-icon">⬇️</div>
+                    <h3>Received Vesting Shares</h3>
+                    <div class="balance-row">
+                        <span class="balance-label">STEEM:</span>
+                        <span id="receivedVestingSharesSTEEM">0.000 STEEM</span>
+                    </div>
+                    <div class="balance-row">
+                        <span class="balance-label">MV:</span>
+                        <span id="receivedVestingSharesMV">0.000 MV</span>
+                    </div>
+                </div>
+                
+                <div class="balance-card">
+                    <div class="card-icon">⬆️</div>
+                    <h3>Delegated Vesting Shares</h3>
+                    <div class="balance-row">
+                        <span class="balance-label">STEEM:</span>
+                        <span id="delegatedVestingSharesSTEEM">0.000 STEEM</span>
+                    </div>
+                    <div class="balance-row">
+                        <span class="balance-label">MV:</span>
+                        <span id="delegatedVestingSharesMV">0.000 MV</span>
+                    </div>
+                </div>
+                
+                <div class="balance-card">
+                    <div class="card-icon">📥</div>
+                    <h3>To Withdraw</h3>
+                    <div class="balance-row">
+                        <span class="balance-label">STEEM:</span>
+                        <span id="toWithdrawSTEEM">0.000 STEEM</span>
+                    </div>
+                    <div class="balance-row">
+                        <span class="balance-label">MV:</span>
+                        <span id="toWithdrawMV">0.000 MV</span>
+                    </div>
+                </div>
+                
+                <div class="balance-card">
+                    <div class="card-icon">📤</div>
+                    <h3>Withdrawn</h3>
+                    <div class="balance-row">
+                        <span class="balance-label">STEEM:</span>
+                        <span id="withdrawnSTEEM">0.000 STEEM</span>
+                    </div>
+                    <div class="balance-row">
+                        <span class="balance-label">MV:</span>
+                        <span id="withdrawnMV">0.000 MV</span>
+                    </div>
+                </div>
+                
+                <div class="balance-card">
+                    <div class="card-icon">⏱️</div>
+                    <h3>Vesting Withdraw Rate</h3>
+                    <div class="balance-row">
+                        <span class="balance-label">STEEM:</span>
+                        <span id="vestingWithdrawRateSTEEM">0.000 STEEM</span>
+                    </div>
+                    <div class="balance-row">
+                        <span class="balance-label">MV:</span>
+                        <span id="vestingWithdrawRateMV">0.000 MV</span>
+                    </div>
+                </div>
+                
+                <div class="balance-card">
+                    <div class="card-icon">📅</div>
+                    <h3>Next Vesting Withdrawal</h3>
+                    <div class="balance-row">
+                        <span id="nextVestingWithdrawal">-</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>© 2023 Hive Analytics - Premium Dashboard</p>
+        </div>
+    </div>
+
+    <!-- Include essential scripts -->
+    <script>
+        // API endpoints
+        const HIVE_API = 'https://api.hive.blog';
+        const HIVE_CDN = 'https://api.hive.blog';
+
+        // Cache system
+        const CACHE_DURATION = 60000; // 1 minute cache
+        const cache = {
+            userData: {},
+            globalData: null,
+            globalDataTimestamp: 0,
+            rewardFund: null,
+            rewardFundTimestamp: 0
+        };
+
+        // Helper function to format numbers
+        function formatNumber(num) {
+            return new Intl.NumberFormat('en-US').format(num);
+        }
+
+        // Show/hide loading indicator
+        function setLoading(loading) {
+            const loader = document.getElementById('searchLoader');
+            const button = document.querySelector('button span');
+            if (loader && button) {
+                loader.style.display = loading ? 'block' : 'none';
+                button.style.display = loading ? 'none' : 'block';
+            }
+        }
+
+        // Function to fetch cached global data or fetch new if needed
+        async function getGlobalData() {
+            const now = Date.now();
+            if (cache.globalData && now - cache.globalDataTimestamp < CACHE_DURATION) {
+                return cache.globalData;
+            }
+            
+            const globalData = await fetch(HIVE_API, {
+                method: 'POST',
+                body: JSON.stringify({
+                    "jsonrpc": "2.0",
+                    "method": "condenser_api.get_dynamic_global_properties",
+                    "id": 1
+                })
+            }).then(r => r.json());
+            
+            cache.globalData = globalData;
+            cache.globalDataTimestamp = now;
+            return globalData;
+        }
+
+        // Function to search user and get balance data
+        function searchUser() {
+            const username = document.getElementById('usernameInput').value.trim();
+            if (!username) {
+                alert('Please enter a username');
+                return;
+            }
+            
+            // Show loading indicator
+            setLoading(true);
+            
+            // Fetch balance data
+            fetchBalanceData(username);
+        }
+
+        // Function to fetch and display balance data
+        async function fetchBalanceData(username) {
+            try {
+                // Get account data
+                const accountResponse = await fetch(HIVE_API, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        jsonrpc: '2.0',
+                        method: 'condenser_api.get_accounts',
+                        params: [[username]],
+                        id: 1
+                    })
+                });
+                const accountData = await accountResponse.json();
+                
+                if (!accountData.result || accountData.result.length === 0) {
+                    throw new Error('User not found');
+                }
+                
+                const account = accountData.result[0];
+                
+                // Get global data for conversion rates
+                const globalData = await getGlobalData();
+                const globals = globalData.result;
+                
+                // Get current price feed
+                const priceFeedResponse = await fetch(HIVE_API, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        jsonrpc: '2.0',
+                        method: 'condenser_api.get_current_median_history_price',
+                        id: 1
+                    })
+                });
+                const priceFeedData = await priceFeedResponse.json();
+                const priceFeed = priceFeedData.result;
+                
+                // Calculate USD and EUR values
+                const steemPrice = parseFloat(priceFeed.base.split(' ')[0]) / parseFloat(priceFeed.quote.split(' ')[0]);
+                const eurUsdRate = 0.85; // Approximate EUR/USD rate
+                
+                // Get vesting share values
+                const vestingShares = parseFloat(account.vesting_shares.split(' ')[0]);
+                const delegatedVestingShares = parseFloat(account.delegated_vesting_shares.split(' ')[0]);
+                const receivedVestingShares = parseFloat(account.received_vesting_shares.split(' ')[0]);
+                
+                // Calculate conversion rate for vesting shares to STEEM
+                const totalVestingShares = parseFloat(globals.total_vesting_shares.split(' ')[0]);
+                const totalVestingFund = parseFloat(globals.total_vesting_fund_steem.split(' ')[0]);
+                const vestToSteem = totalVestingFund / totalVestingShares;
+                
+                // Calculate STEEM values
+                const vestingSharesSteem = vestingShares * vestToSteem;
+                const delegatedVestingSharesSteem = delegatedVestingShares * vestToSteem;
+                const receivedVestingSharesSteem = receivedVestingShares * vestToSteem;
+                
+                // Calculate total account value in STEEM
+                const steemBalance = parseFloat(account.balance.split(' ')[0]);
+                const sbdBalance = parseFloat(account.sbd_balance.split(' ')[0]);
+                
+                // Convert SBD to STEEM equivalent
+                const sbdSteemEquivalent = sbdBalance * steemPrice;
+                
+                // Calculate savings balances
+                const savingsSteemBalance = parseFloat(account.savings_balance.split(' ')[0]);
+                const savingsSbdBalance = parseFloat(account.savings_sbd_balance.split(' ')[0]);
+                
+                // Calculate total account value
+                const totalSteemValue = steemBalance + sbdSteemEquivalent + savingsSteemBalance + 
+                                      (savingsSbdBalance * steemPrice) + vestingSharesSteem;
+                
+                // Get reward balances
+                const rewardSteemBalance = parseFloat(account.reward_steem_balance.split(' ')[0]);
+                const rewardSbdBalance = parseFloat(account.reward_sbd_balance.split(' ')[0]);
+                
+                // Calculate USD value
+                const accountValueUsd = totalSteemValue * steemPrice;
+                const accountValueEur = accountValueUsd * eurUsdRate;
+                
+                // Get withdrawal data
+                const toWithdraw = parseFloat(account.to_withdraw) / 1000000; // Convert to VESTS
+                const withdrawn = parseFloat(account.withdrawn) / 1000000; // Convert to VESTS
+                
+                // Get vesting withdraw rate
+                const vestingWithdrawRate = parseFloat(account.vesting_withdraw_rate.split(' ')[0]);
+                
+                // Get next vesting withdrawal date
+                const nextVestingWithdrawalDate = new Date(account.next_vesting_withdrawal + 'Z');
+                let nextVestingWithdrawalText = "-";
+                
+                if (account.next_vesting_withdrawal !== "1969-12-31T23:59:59") {
+                    nextVestingWithdrawalText = nextVestingWithdrawalDate.toLocaleDateString();
+                }
+                
+                // Update UI with balance data
+                // Account Value
+                document.getElementById('accountValueUSD').textContent = `${accountValueUsd.toFixed(2)} USD`;
+                document.getElementById('accountValueEUR').textContent = `${accountValueEur.toFixed(2)} EUR`;
+                
+                // Reward Balance
+                document.getElementById('rewardBalanceSTEEM').textContent = `${rewardSteemBalance.toFixed(3)} STEEM`;
+                document.getElementById('rewardBalanceSBD').textContent = `${rewardSbdBalance.toFixed(3)} SBD`;
+                
+                // Account Balance
+                document.getElementById('accountBalanceSTEEM').textContent = `${steemBalance.toFixed(3)} STEEM`;
+                document.getElementById('accountBalanceSBD').textContent = `${sbdBalance.toFixed(3)} SBD`;
+                
+                // Savings Balance
+                document.getElementById('savingsBalanceSTEEM').textContent = `${savingsSteemBalance.toFixed(3)} STEEM`;
+                document.getElementById('savingsBalanceSBD').textContent = `${savingsSbdBalance.toFixed(3)} SBD`;
+                
+                // Vesting Balance
+                document.getElementById('vestingBalance').textContent = `${vestingSharesSteem.toFixed(3)} STEEM`;
+                
+                // Vesting Shares
+                document.getElementById('vestingSharesSTEEM').textContent = `${vestingSharesSteem.toFixed(3)} STEEM`;
+                document.getElementById('vestingSharesMV').textContent = `${vestingShares.toFixed(3)} VESTS`;
+                
+                // Received Vesting Shares
+                document.getElementById('receivedVestingSharesSTEEM').textContent = `${receivedVestingSharesSteem.toFixed(3)} STEEM`;
+                document.getElementById('receivedVestingSharesMV').textContent = `${receivedVestingShares.toFixed(3)} VESTS`;
+                
+                // Delegated Vesting Shares
+                document.getElementById('delegatedVestingSharesSTEEM').textContent = `${delegatedVestingSharesSteem.toFixed(3)} STEEM`;
+                document.getElementById('delegatedVestingSharesMV').textContent = `${delegatedVestingShares.toFixed(3)} VESTS`;
+                
+                // To Withdraw
+                document.getElementById('toWithdrawSTEEM').textContent = `${toWithdraw.toFixed(3)} STEEM`;
+                document.getElementById('toWithdrawMV').textContent = `${toWithdraw.toFixed(3)} VESTS`;
+                
+                // Withdrawn
+                document.getElementById('withdrawnSTEEM').textContent = `${withdrawn.toFixed(3)} STEEM`;
+                document.getElementById('withdrawnMV').textContent = `${withdrawn.toFixed(3)} VESTS`;
+                
+                // Vesting Withdraw Rate
+                document.getElementById('vestingWithdrawRateSTEEM').textContent = `${vestingWithdrawRate.toFixed(3)} STEEM`;
+                document.getElementById('vestingWithdrawRateMV').textContent = `${vestingWithdrawRate.toFixed(3)} VESTS`;
+                
+                // Next Vesting Withdrawal
+                document.getElementById('nextVestingWithdrawal').textContent = nextVestingWithdrawalText;
+                
+                // Show balance container
+                const balanceContainer = document.getElementById('balanceContainer');
+                balanceContainer.style.display = 'block';
+                balanceContainer.classList.add('active');
+                
+            } catch (error) {
+                console.error('Error fetching balance data:', error);
+                alert('Error: ' + error.message);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        // When the page loads, set up Enter key press handler
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('usernameInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchUser();
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

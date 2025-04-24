@@ -1,0 +1,341 @@
+/* Premium Maintenance Mode Styling with enhanced design */
+.maintenance-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, rgba(20, 20, 20, 0.9) 0%, rgba(0, 0, 0, 0.98) 100%);
+    z-index: 10000;
+    overflow: hidden;
+    opacity: 0;
+    transition: opacity 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+    backdrop-filter: blur(8px);
+}
+
+.maintenance-overlay::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.4;
+}
+
+.maintenance-overlay.active {
+    display: block;
+    opacity: 1;
+    animation: fadeInBackground 1.5s ease forwards;
+}
+
+@keyframes fadeInBackground {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.maintenance-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -55%);
+    width: 70%;
+    max-width: 400px;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+    border-radius: 16px;
+    box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.8),
+        0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+        0 5px 15px rgba(0, 0, 0, 0.5) inset;
+    text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    overflow: hidden;
+    animation: floatIn 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+@keyframes floatIn {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -40%) scale(0.95);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+.maintenance-container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(229, 9, 20, 0.1) 0%, transparent 70%);
+    transform: rotate(45deg);
+    z-index: -1;
+}
+
+.maintenance-logo {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    background: linear-gradient(135deg, #E50914 0%, #ff0f23 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 
+        0 0 0 6px rgba(229, 9, 20, 0.1),
+        0 0 25px rgba(229, 9, 20, 0.7),
+        0 0 0 2px rgba(255, 255, 255, 0.05) inset;
+    animation: pulse 2s infinite, rotateGear 12s linear infinite;
+    position: relative;
+    transform-style: preserve-3d;
+}
+
+.maintenance-logo i {
+    font-size: 40px;
+    color: white;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    display: inline-block;
+}
+
+@keyframes rotateGear {
+    0% {
+        transform: rotateZ(0deg);
+    }
+    100% {
+        transform: rotateZ(360deg);
+    }
+}
+
+.maintenance-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    background: linear-gradient(to right, #E50914, #ff5252, #E50914);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    animation: shine 3s linear infinite;
+    text-shadow: 0 5px 15px rgba(229, 9, 20, 0.3);
+}
+
+@keyframes shine {
+    to {
+        background-position: 200% center;
+    }
+}
+
+.maintenance-message {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 15px;
+    color: #f0f0f0;
+    max-width: 98%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.maintenance-time {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 15px;
+    color: #ffffff;
+    background: rgba(229, 9, 20, 0.1);
+    padding: 8px 20px;
+    border-radius: 30px;
+    display: inline-block;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(229, 9, 20, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.maintenance-time::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        transparent
+    );
+    transform: rotate(30deg);
+    animation: timeSweep 3s linear infinite;
+}
+
+@keyframes timeSweep {
+    0% {
+        transform: rotate(30deg) translateX(-100%);
+    }
+    100% {
+        transform: rotate(30deg) translateX(100%);
+    }
+}
+
+.maintenance-progress {
+    height: 6px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    position: relative;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2) inset;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.maintenance-progress-bar {
+    height: 100%;
+    width: 75%;
+    background: linear-gradient(90deg, #E50914, #ff5252, #E50914);
+    background-size: 200% 100%;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    animation: progress-animate 3s ease-in-out infinite;
+    box-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
+}
+
+.maintenance-progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+    animation: progress-shine 2s ease-in-out infinite;
+}
+
+.maintenance-contact {
+    font-size: 0.85rem;
+    color: #cccccc;
+    margin-top: 15px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    display: inline-block;
+}
+
+.maintenance-contact a {
+    color: #ff5252;
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 0 5px;
+}
+
+.maintenance-contact a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: #ff5252;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+}
+
+.maintenance-contact a:hover {
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(229, 9, 20, 0.7);
+}
+
+.maintenance-contact a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+/* Enhanced animations */
+@keyframes pulse {
+    0% {
+        box-shadow: 
+            0 0 0 10px rgba(229, 9, 20, 0.1),
+            0 0 30px rgba(229, 9, 20, 0.7);
+    }
+    70% {
+        box-shadow: 
+            0 0 0 15px rgba(229, 9, 20, 0),
+            0 0 40px rgba(229, 9, 20, 0.5);
+    }
+    100% {
+        box-shadow: 
+            0 0 0 10px rgba(229, 9, 20, 0.1),
+            0 0 30px rgba(229, 9, 20, 0.7);
+    }
+}
+
+@keyframes progress-animate {
+    0% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 0%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}
+
+@keyframes progress-shine {
+    0% {
+        left: -100%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+/* Enhanced close button */
+.maintenance-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.maintenance-close:hover {
+    background-color: rgba(229, 9, 20, 0.2);
+    transform: rotate(90deg);
+}
+
+.maintenance-close span {
+    color: #ffffff;
+    font-size: 18px;
+    line-height: 1;
+} 

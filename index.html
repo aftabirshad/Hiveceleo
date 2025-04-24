@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hive Celeo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://api.hive.blog" crossorigin>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="balance.css">
+    <link rel="stylesheet" href="delegation.css">
+    <link rel="stylesheet" href="accountoperation.css">
+    <link rel="stylesheet" href="loading.css">
+    <link rel="stylesheet" href="welcome.css">
+    <link rel="stylesheet" href="theme-toggle.css">
+    <link rel="stylesheet" href="maintenance.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="description" content="Hive Celeo - Statistics for Hive blockchain accounts">
+</head>
+<body>
+    <div class="container">
+        <div class="search-container">
+            <h1>Hive Celeo</h1>
+            <p class="subtitle">Get comprehensive statistics for any Hive blockchain account</p>
+            <div class="search-box">
+                <input type="text" id="usernameInput" placeholder="Enter Hive username" autocomplete="off">
+                <button onclick="searchUser()">
+                    <span>Search</span>
+                    <div class="loader" id="searchLoader"></div>
+                </button>
+            </div>
+        </div>
+
+        <div class="stats-container" id="statsContainer">
+            <div class="stats-grid">
+                <div class="stat-card power">
+                    <div class="card-icon">🔋</div>
+                    <h3>Effective Power</h3>
+                    <p id="effectivePower">-</p>
+                </div>
+                <div class="stat-card vote">
+                    <div class="card-icon">💲</div>
+                    <h3>Vote Amount</h3>
+                    <p id="voteAmount">-</p>
+                </div>
+                <div class="stat-card voting">
+                    <div class="card-icon">⚡</div>
+                    <h3>Voting Power</h3>
+                    <label for="votePowerSlider">Set Voting Power: <span id="votePowerLabel">100</span>%</label>
+                    <input type="range" min="1" max="100" value="100" id="votePowerSlider">
+                    <div class="progress-bar">
+                        <div id="votingPowerBar" class="progress"></div>
+                    </div>
+                    <p id="votingPower">-</p>
+                </div>
+                <div class="stat-card rc">
+                    <div class="card-icon">🔋</div>
+                    <h3>RC Status</h3>
+                    <div class="progress-bar">
+                        <div id="rcBar" class="progress"></div>
+                    </div>
+                    <p id="rcStatus">-</p>
+                </div>
+                <div class="stat-card reputation">
+                    <div class="card-icon">⭐</div>
+                    <h3>Reputation Score</h3>
+                    <p id="reputation">-</p>
+                </div>
+                <div class="stat-card social">
+                    <div class="card-icon">👥</div>
+                    <h3>Social Stats</h3>
+                    <div class="social-stats">
+                        <div>
+                            <span class="label">Followers:</span>
+                            <span id="followers">-</span>
+                        </div>
+                        <div>
+                            <span class="label">Following:</span>
+                            <span id="following">-</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="stat-card votes">
+                    <div class="card-icon">👍</div>
+                    <h3>Vote Statistics</h3>
+                    <div class="vote-stats">
+                        <!-- Empty content but keeping IDs for JavaScript -->
+                        <span id="votesGiven" style="display:none">-</span>
+                        <span id="votesReceived" style="display:none">-</span>
+                    </div>
+                </div>
+                <div class="stat-card posts">
+                    <div class="card-icon">📝</div>
+                    <h3>Content Stats</h3>
+                    <div class="post-stats" style="display: flex; gap: 8px; align-items: center;">
+                        <span class="label">Posts:</span><span id="postCount">-</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Toggle Button for Balance View -->
+            <div class="balance-toggle">
+                <button id="toggleBalanceBtn" class="toggle-button" onclick="toggleDetailedBalance()">Show Detailed Balance</button>
+            </div>
+            
+            <!-- Balance Section with improved styling -->
+            <div class="balance-container" id="balanceContainer">
+                <h2 class="balance-title">Account Balance Details</h2>
+                
+                <div class="account-total">
+                    <div class="total-value">Total Account Value: <span id="accountValueUSD">$0.00</span></div>
+                    <div class="price-info">Current HIVE Price: <span id="currentPrice">$0.00</span></div>
+                </div>
+                
+                <div class="balance-grid">
+                    <div class="balance-card">
+                        <h3>HIVE Balance</h3>
+                        <div class="balance-row">
+                            <span id="hiveBalance">0.000 HIVE ($0.00)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="balance-card">
+                        <h3>HBD Balance</h3>
+                        <div class="balance-row">
+                            <span id="hbdBalance">0.000 HBD ($0.00)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="balance-card">
+                        <h3>HIVE Power</h3>
+                        <div class="balance-row">
+                            <span id="hivePower">0.000 HP ($0.00)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="balance-card delegations-card" id="delegationsCard" style="display:none;">
+                        <h3>Delegations</h3>
+                        <div class="balance-row" id="delegatedPowerRow" style="display: none;">
+                            <span class="balance-label">Delegated Out:</span>
+                            <span id="delegatedPower">0.000 HP</span>
+                        </div>
+                        <div class="balance-row" id="receivedPowerRow" style="display: none;">
+                            <span class="balance-label">Delegated In:</span>
+                            <span id="receivedPower">0.000 HP</span>
+                        </div>
+                    </div>
+                    
+                    <div class="balance-card">
+                        <h3>Effective Power</h3>
+                        <div class="balance-row">
+                            <span id="effectivePower">0.000 HP ($0.00)</span>
+                        </div>
+                    </div>
+                    
+                    <div class="balance-card" id="savingsCard" style="display: none;">
+                        <h3>Savings</h3>
+                        <div class="balance-row">
+                            <span class="balance-label">HIVE:</span>
+                            <span id="savingsHive">0.000 HIVE</span>
+                        </div>
+                        <div class="balance-row">
+                            <span class="balance-label">HBD:</span>
+                            <span id="savingsHbd">0.000 HBD</span>
+                        </div>
+                        <div class="balance-row">
+                            <span class="balance-label">Value:</span>
+                            <span id="savingsValueUSD">$0.00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="balance-card" id="rewardsCard" style="display: none;">
+                        <h3>Pending Rewards</h3>
+                        <div class="balance-row">
+                            <span class="balance-label">HIVE:</span>
+                            <span id="rewardHive">0.000 HIVE</span>
+                        </div>
+                        <div class="balance-row">
+                            <span class="balance-label">HBD:</span>
+                            <span id="rewardHbd">0.000 HBD</span>
+                        </div>
+                        <div class="balance-row">
+                            <span class="balance-label">HP:</span>
+                            <span id="rewardHP">0.000 HP</span>
+                        </div>
+                        <div class="balance-row">
+                            <span class="balance-label">Value:</span>
+                            <span id="rewardValueUSD">$0.00</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Detailed Balance Table -->
+            <div class="detailed-balance" id="detailedBalance" style="display: none;">
+                <h2 class="balance-title">Detailed Account Balance</h2>
+                
+                <table class="detailed-balance-table">
+                    <tbody>
+                        <tr>
+                            <td>Account Value</td>
+                            <td><span id="detailedAccountValueUSD">0.00</span> USD | <span id="detailedAccountValueEUR">0.00</span> EUR</td>
+                        </tr>
+                        <tr>
+                            <td>Reward Balance</td>
+                            <td>
+                                <div><span id="detailedRewardBalanceHIVE">0.000</span> HIVE | <span id="detailedRewardBalanceHBD">0.000</span> HBD</div>
+                                <!-- Space for lifetime rewards info -->
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Account Balance</td>
+                            <td><span id="detailedAccountBalanceHIVE">0.000</span> HIVE | <span id="detailedAccountBalanceHBD">0.000</span> HBD</td>
+                        </tr>
+                        <tr>
+                            <td>Savings Balance</td>
+                            <td><span id="detailedSavingsBalanceHIVE">0.000</span> HIVE | <span id="detailedSavingsBalanceHBD">0.000</span> HBD</td>
+                        </tr>
+                        <tr>
+                            <td>Vesting Balance</td>
+                            <td><span id="detailedVestingBalance">0.000</span> HIVE</td>
+                        </tr>
+                        <tr>
+                            <td>Vesting Shares</td>
+                            <td><span id="detailedVestingSharesHIVE">0.000</span> HIVE | <span id="detailedVestingSharesMV">0.000</span> VESTS</td>
+                        </tr>
+                        <tr>
+                            <td>Received Vesting Shares</td>
+                            <td><span id="detailedReceivedVestingSharesHIVE">0.000</span> HIVE | <span id="detailedReceivedVestingSharesMV">0.000</span> VESTS</td>
+                        </tr>
+                        <tr>
+                            <td>Delegated Vesting Shares</td>
+                            <td><span id="detailedDelegatedVestingSharesHIVE">0.000</span> HIVE | <span id="detailedDelegatedVestingSharesMV">0.000</span> VESTS</td>
+                        </tr>
+                        <tr>
+                            <td>To Withdraw</td>
+                            <td><span id="detailedToWithdrawHIVE">0.000</span> HIVE | <span id="detailedToWithdrawMV">0.000</span> VESTS</td>
+                        </tr>
+                        <tr>
+                            <td>Withdrawn</td>
+                            <td><span id="detailedWithdrawnHIVE">0.000</span> HIVE | <span id="detailedWithdrawnMV">0.000</span> VESTS</td>
+                        </tr>
+                        <tr>
+                            <td>Vesting Withdraw Rate</td>
+                            <td><span id="detailedVestingWithdrawRateHIVE">0.000</span> HIVE | <span id="detailedVestingWithdrawRateMV">0.000</span> VESTS</td>
+                        </tr>
+                        <tr>
+                            <td>Next Vesting Withdrawal</td>
+                            <td><span id="detailedNextVestingWithdrawal">-</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="footer">
+                <p>Made with ❤️ on the Hive blockchain — by <a href="https://hive.blog/@aftabirshad" target="_blank">@aftabirshad</a></p>
+                <p>Empowering your journey with live Hive data and analytics.</p>
+            </div>
+        </div>
+    </div>
+    <script src="loading.js" defer></script>
+    <script src="welcome.js" defer></script>
+    <script src="script.js" defer></script>
+    <script src="balance.js" defer></script>
+    <script src="delegation.js" defer></script>
+    <script src="accountoperation.js" defer></script>
+    <script src="theme-toggle.js" defer></script>
+    <script src="maintenance.js" defer></script>
+    <script src="promote.js" defer></script>
+    <script src="support.js" defer></script>
+    <script>
+        // Create a unified search function that calls both data fetching functions
+        function searchUser() {
+            const username = document.getElementById('usernameInput').value.trim();
+            if (!username) {
+                alert('Please enter a username');
+                return;
+            }
+            
+            // Reset balance containers
+            const balanceContainer = document.getElementById('balanceContainer');
+            balanceContainer.style.display = 'none';
+            balanceContainer.classList.remove('active');
+            
+            const detailedBalance = document.getElementById('detailedBalance');
+            detailedBalance.style.display = 'none';
+            detailedBalance.classList.remove('active');
+            
+            // Reset delegation container if it exists
+            const delegationView = document.getElementById('delegationView');
+            if (delegationView) {
+                delegationView.style.display = 'none';
+                delegationView.classList.remove('active');
+            }
+            
+            // Reset account operations container if it exists
+            const accountOpView = document.getElementById('accountOperationsView');
+            if (accountOpView) {
+                accountOpView.style.display = 'none';
+                accountOpView.classList.remove('active');
+            }
+            
+            // Reset toggle button text
+            const toggleButton = document.getElementById('toggleBalanceBtn');
+            if (toggleButton) {
+                toggleButton.textContent = 'Show Detailed Balance';
+            }
+            
+            // Reset delegation button text
+            const delegationButton = document.getElementById('toggleDelegationBtn');
+            if (delegationButton) {
+                delegationButton.textContent = 'Show Delegations';
+            }
+            
+            // Reset account operations button text
+            const accountOpButton = document.getElementById('toggleAccountOpBtn');
+            if (accountOpButton) {
+                accountOpButton.textContent = 'Show Account Operations';
+            }
+            
+            // Call data fetching function - will handle loading indicators internally
+            fetchUserStats();
+        }
+        
+        // Define the toggleDetailedBalance function directly in index.html
+        function toggleDetailedBalance() {
+            console.log('Toggle detailed balance clicked from index.html');
+            const detailedBalance = document.getElementById('detailedBalance');
+            const balanceContainer = document.getElementById('balanceContainer');
+            const toggleButton = document.getElementById('toggleBalanceBtn');
+            
+            // Check if detailed balance is hidden
+            if (detailedBalance.style.display === 'none' || !detailedBalance.style.display || 
+                detailedBalance.style.display === '') {
+                console.log('Showing detailed balance');
+                
+                // Hide the card view
+                balanceContainer.classList.remove('active');
+                balanceContainer.style.display = 'none';
+                
+                // Show the detailed view
+                detailedBalance.style.display = 'block';
+                setTimeout(() => {
+                    detailedBalance.classList.add('active');
+                }, 10);
+                
+                // Get username and fetch data
+                const username = document.getElementById('usernameInput').value.trim();
+                if (username) {
+                    // Try to use the function from balance.js if available
+                    if (typeof window.fetchDetailedBalanceData === 'function') {
+                        window.fetchDetailedBalanceData(username);
+                    } else {
+                        // Use our local fallback
+                        fetchDetailedBalanceDataLocal(username);
+                    }
+                }
+                
+                toggleButton.textContent = 'Show Card Balance';
+            } else {
+                console.log('Hiding detailed balance');
+                
+                // Hide the detailed view
+                detailedBalance.classList.remove('active');
+                detailedBalance.style.display = 'none';
+                
+                // Show the card view
+                balanceContainer.style.display = 'block';
+                setTimeout(() => {
+                    balanceContainer.classList.add('active');
+                }, 10);
+                
+                toggleButton.textContent = 'Show Detailed Balance';
+            }
+        }
+        
+        // Simple fallback for fetching detailed balance data
+        async function fetchDetailedBalanceDataLocal(username) {
+            try {
+                console.log('Using local fetchDetailedBalanceData for:', username);
+                
+                // Get the account data directly
+                const HIVE_API = 'https://api.hive.blog';
+                
+                // Get account data
+                const accountResponse = await fetch(HIVE_API, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        jsonrpc: '2.0',
+                        method: 'condenser_api.get_accounts',
+                        params: [[username]],
+                        id: 1
+                    })
+                });
+                const accountData = await accountResponse.json();
+                
+                if (!accountData.result || accountData.result.length === 0) {
+                    console.error('User not found');
+                    return;
+                }
+                
+                const account = accountData.result[0];
+                console.log('Account data received:', account);
+                
+                // Get global data for conversion rates
+                const globalResponse = await fetch(HIVE_API, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        jsonrpc: '2.0',
+                        method: 'condenser_api.get_dynamic_global_properties',
+                        id: 1
+                    })
+                });
+                const globalData = await globalResponse.json();
+                
+                // Get price feed
+                const priceResponse = await fetch(HIVE_API, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        jsonrpc: '2.0',
+                        method: 'condenser_api.get_current_median_history_price',
+                        id: 1
+                    })
+                });
+                const priceData = await priceResponse.json();
+                
+                // Display data in the detailed balance view
+                document.getElementById('detailedAccountValueUSD').textContent = '...calculating';
+                document.getElementById('detailedAccountValueEUR').textContent = '...calculating';
+                document.getElementById('detailedAccountBalanceHIVE').textContent = account.balance.split(' ')[0];
+                document.getElementById('detailedAccountBalanceHBD').textContent = (account.hbd_balance || account.sbd_balance || '0 HBD').split(' ')[0];
+                document.getElementById('detailedVestingBalance').textContent = '...calculating';
+                
+                // Show a message to tell users to use the original function
+                console.log('Using simplified data display - for full details reload the page');
+            } catch (error) {
+                console.error('Error in local fetch function:', error);
+            }
+        }
+        
+        // When the page loads, replace the onclick handler of the search button
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchButton = document.querySelector('.search-box button');
+            searchButton.onclick = searchUser;
+            
+            // Handle Enter key press
+            document.getElementById('usernameInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    searchUser();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

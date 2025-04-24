@@ -1,0 +1,401 @@
+/* Account Operations CSS */
+.account-op-container {
+    position: relative;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px 0;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    overflow: hidden;
+}
+
+.account-op-container.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.account-op-title {
+    color: #1a365d;
+    font-size: 24px;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f0f2f5;
+}
+
+.account-op-content {
+    position: relative;
+    min-height: 100px;
+}
+
+.account-op-loading, .account-op-error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+    color: #888;
+    font-style: italic;
+}
+
+.account-op-error {
+    color: #e53e3e;
+}
+
+.account-op-summary {
+    margin-bottom: 15px;
+    padding: 15px;
+    background: #f9fafb;
+    border-radius: 10px;
+}
+
+.account-op-summary h3 {
+    color: #2c5282;
+    margin-bottom: 5px;
+}
+
+.account-op-summary p {
+    color: #718096;
+    margin: 0;
+}
+
+/* Controls container for date buttons and filter */
+.account-op-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+/* Day filter buttons */
+.account-op-days {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0 5px;
+    max-width: 80%;
+}
+
+.account-op-day-button {
+    padding: 6px 12px;
+    border-radius: 20px;
+    background: #f0f0f0;
+    border: none;
+    font-size: 14px;
+    color: #4a5568;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.account-op-day-button:hover {
+    background: #e2e8f0;
+}
+
+.account-op-day-button.active {
+    background: #3182ce;
+    color: white;
+}
+
+/* Type filter buttons */
+.account-op-type-filters {
+    position: relative;
+}
+
+.account-op-filter-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.account-op-filter-button {
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: #4299e1;
+    color: white;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.account-op-filter-button:hover {
+    background: #3182ce;
+}
+
+.filter-icon {
+    font-size: 16px;
+}
+
+.active-filter-badge {
+    background: #ebf8ff;
+    color: #2b6cb0;
+    padding: 4px 8px;
+    border-radius: 20px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.account-op-filter-dropdown {
+    position: absolute;
+    right: 0;
+    top: 40px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    padding: 12px;
+    z-index: 10;
+    width: 250px;
+}
+
+.account-op-type-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.account-op-type-button {
+    padding: 5px 10px;
+    border-radius: 15px;
+    background: #edf2f7;
+    border: none;
+    font-size: 13px;
+    color: #4a5568;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.account-op-type-button:hover {
+    background: #e2e8f0;
+}
+
+.account-op-type-button.active {
+    background: #3182ce;
+    color: white;
+}
+
+.account-op-empty {
+    text-align: center;
+    padding: 40px 0;
+    color: #718096;
+    font-style: italic;
+}
+
+.account-op-date-section {
+    margin-bottom: 25px;
+}
+
+.account-op-date {
+    margin: 20px 0 10px;
+    padding: 5px 10px;
+    background: #ebf8ff;
+    color: #2b6cb0;
+    border-radius: 5px;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.account-op-list {
+    border-left: 2px solid #e2e8f0;
+    margin-left: 10px;
+    padding-left: 20px;
+}
+
+.account-op-item {
+    position: relative;
+    margin-bottom: 15px;
+    padding: 12px 15px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    border-left: 3px solid #3182ce;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.account-op-item:before {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: #3182ce;
+    border-radius: 50%;
+    left: -27px;
+    top: 15px;
+}
+
+/* Direction icon */
+.account-op-icon {
+    width: 30px;
+    text-align: center;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.op-direction-icon {
+    display: inline-block;
+    line-height: 1;
+    vertical-align: middle;
+}
+
+.account-op-time {
+    width: 70px;
+    color: #718096;
+    font-size: 14px;
+}
+
+.account-op-type {
+    width: 110px;
+    font-weight: bold;
+    color: #2d3748;
+    text-transform: capitalize;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.account-op-description {
+    flex: 1;
+    color: #4a5568;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Link styles */
+.account-op-description a {
+    color: #3182ce;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.account-op-description a:hover {
+    color: #2b6cb0;
+    text-decoration: underline;
+}
+
+/* Expand button */
+.account-op-expand {
+    margin-left: auto;
+    padding-left: 10px;
+}
+
+.op-expand-btn {
+    background: #f0f7ff;
+    border: 1px solid #dae7fc;
+    border-radius: 4px;
+    color: #3182ce;
+    font-size: 12px;
+    padding: 3px 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.op-expand-btn:hover {
+    background: #e2efff;
+}
+
+/* Details section */
+.op-details {
+    width: 100%;
+    margin-top: 10px;
+    background: #f8fafc;
+    border-radius: 4px;
+    padding: 10px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.op-details-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.op-details-table td {
+    padding: 4px 8px;
+    border-bottom: 1px solid #edf2f7;
+}
+
+.op-details-table tr:last-child td {
+    border-bottom: none;
+}
+
+.op-details-table td:first-child {
+    font-weight: 500;
+    color: #4a5568;
+    width: 30%;
+}
+
+.op-details-table a {
+    color: #3182ce;
+    text-decoration: none;
+}
+
+.op-details-table a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .account-op-controls {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .account-op-days {
+        max-width: 100%;
+        justify-content: center;
+    }
+    
+    .account-op-filter-header {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .account-op-filter-dropdown {
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        width: 280px;
+    }
+    
+    .account-op-type-buttons {
+        justify-content: center;
+    }
+    
+    .account-op-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .account-op-icon {
+        position: absolute;
+        left: 10px;
+        top: 12px;
+    }
+    
+    .account-op-time, 
+    .account-op-type {
+        width: 100%;
+        margin-bottom: 5px;
+        padding-left: 20px;
+    }
+    
+    .account-op-description {
+        width: 100%;
+        margin-bottom: 10px;
+        padding-left: 20px;
+    }
+    
+    .account-op-expand {
+        margin-left: 0;
+        padding-left: 20px;
+    }
+} 
