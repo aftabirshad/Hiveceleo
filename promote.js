@@ -33,11 +33,11 @@ class PromotionManager {
             {
                 id: 'hive-power',
                 type: 'festival',
-                title: 'Boost Your Hive Power',
-                description: 'Increase your influence on the blockchain! Power up your HIVE to earn more curation rewards and voting impact.',
+                title: 'Pakistan Zindabad! Let’s build a brighter future together, with unity, faith, and discipline.',
+                description: 'Celebrate the spirit of Pakistan! Stand united, work for progress, and keep the green flag flying high every day.',
                 imageUrl: 'https://cdn.steemitimages.com/DQmaeoEWSAunoJY7GnYJhb5qrbg6kr4EYsGeRpc5n3YHLeU/ChatGPT%20Image%20Aug%2013,%202025,%2006_24_23%20AM.png',
-                buttonText: 'Power Up Now',
-                buttonLink: 'https://wallet.hive.blog/',
+                buttonText: 'Ae Arz-e-Watan Song',
+                buttonLink: 'https://www.youtube.com/watch?v=lB81_u0nQGs&list=RDlB81_u0nQGs&start_radio=1',
                 // Current date range to ensure it shows up immediately
                 startDate: new Date(new Date().setDate(new Date().getDate() - 2)),
                 endDate: new Date(new Date().setDate(new Date().getDate() + 5))
@@ -284,3 +284,4 @@ document.addEventListener('DOMContentLoaded', () => {
     promotionManager.initialize();
 
 }); 
+
