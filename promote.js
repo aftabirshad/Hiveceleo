@@ -35,7 +35,7 @@ class PromotionManager {
                 type: 'festival',
                 title: 'Boost Your Hive Power',
                 description: 'Increase your influence on the blockchain! Power up your HIVE to earn more curation rewards and voting impact.',
-                imageUrl: 'https://images.hive.blog/DQmaDpzxnHHQqZs1WKhF9hqZXFATgheoFEgjqQGGa7g3f77/0a939254-2cdc-433f-8f65-d2a63142c418.png',
+                imageUrl: 'https://cdn.steemitimages.com/DQmaeoEWSAunoJY7GnYJhb5qrbg6kr4EYsGeRpc5n3YHLeU/ChatGPT%20Image%20Aug%2013,%202025,%2006_24_23%20AM.png',
                 buttonText: 'Power Up Now',
                 buttonLink: 'https://wallet.hive.blog/',
                 // Current date range to ensure it shows up immediately
@@ -282,4 +282,5 @@ class PromotionManager {
 document.addEventListener('DOMContentLoaded', () => {
     const promotionManager = new PromotionManager();
     promotionManager.initialize();
+
 }); 
