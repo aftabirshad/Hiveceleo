@@ -61,8 +61,8 @@ class PromotionManager {
                 imageUrl: 'https://images.hive.blog/DQmbgo1niAUsMBk1BDSofaQjvgj91jJuUdjd2K1CER43GkY/4ab2673b-573f-45a4-a890-c39b5384f92d.png',
                 buttonText: 'Read the Latest on Gaza Convoy',
                 buttonLink: 'https://apnews.com/article/israel-palestinians-gaza-flotilla-activists-5e7e0e22b2813f00a0b907fae84f9284',
-                startDate: new Date('October 1'),
-                endDate: new Date('October 3')
+                startDate: new Date('October 30'),
+                endDate: new Date('October 30')
             },
             {
                 id: 'festival-newyear',
@@ -284,6 +284,7 @@ document.addEventListener('DOMContentLoaded', () => {
     promotionManager.initialize();
 
 }); 
+
 
 
 
