@@ -56,13 +56,13 @@ class PromotionManager {
             {
                 id: 'national-independence',
                 type: 'national',
-                title: 'Independence Day',
-                description: 'Celebrate freedom and democracy with special Hive blockchain events. Join the conversation and earn rewards!',
-                imageUrl: 'https://images.unsplash.com/photo-1556804335-2fa563e93aae',
-                buttonText: 'Join Event',
-                buttonLink: '#',
-                startDate: new Date('July 2'),
-                endDate: new Date('July 5')
+                title: 'Gaza Relief Mission',
+                description: 'The latest updates on the convoy that is going to break the Israeli siege in Gaza are that this convoy is only three days away, and according to Senator Mushtaq Ahmed, Israel has given the task to the Special Bari Commando Task Force to prevent this convoy from entering our borders. Last night the convoy was attacked by 15 drones. Many boats were damaged, but the participants of the convoy are safe and their morale is still high. Senator Mushtaq Ahmed Khan has been posting these videos repeatedly, saying that Pakistanis do not remain silent. Raise your voice for this convoy. Build pressure on the international media. If you remain silent, you will not be able to face the Day of Judgment. There were only four killers of Hazrat Saleh (AS)'s camel, but the entire nation was destroyed. What was the crime of the rest? I will request the Pakistani Social Media Council that if Allah has raised the stature of your voice, then this responsibility falls on us. We have to convince our governments to ensure the safety of this convoy and build pressure on the global media. All people should tag their media contacts in this video, mention them, and go and request them — Allah has given you this honor and such a huge following. If Allah asks what you did to stop innocent children from dying from lack of food, your prayers and worship will count for nothing. When Nimrod threw Hazrat Ibrahim (AS) into the fire, a bird brought water in its beak. It knew that the fire would not be extinguished by it, but it knew that on the Day of Judgment its name would be written among those who extinguished the fire and not among those who ignited it. It is your responsibility to share this video with every influencer you follow. Peace be upon you.',
+                imageUrl: 'https://images.hive.blog/DQmbgo1niAUsMBk1BDSofaQjvgj91jJuUdjd2K1CER43GkY/4ab2673b-573f-45a4-a890-c39b5384f92d.png',
+                buttonText: 'Read the Latest on Gaza Convoy',
+                buttonLink: 'https://apnews.com/article/israel-palestinians-gaza-flotilla-activists-5e7e0e22b2813f00a0b907fae84f9284',
+                startDate: new Date('October 1'),
+                endDate: new Date('October 3')
             },
             {
                 id: 'festival-newyear',
@@ -284,4 +284,5 @@ document.addEventListener('DOMContentLoaded', () => {
     promotionManager.initialize();
 
 }); 
+
 
